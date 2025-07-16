@@ -14,7 +14,7 @@ public class Prob2 extends JFrame implements ActionListener{
         setLayout(null);
         setTitle("Números Palíndromos");
         setSize(400, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         lblInicio = new JLabel("Número inicial:");
         lblInicio.setBounds(20, 20, 100, 25);
