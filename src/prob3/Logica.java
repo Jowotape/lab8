@@ -4,18 +4,20 @@ import exceptions.CedulaInvalidaException;
 import exceptions.MontoInvalidoException;
 import exceptions.NombreInvalidoException;
 import java.io.IOException;
-import java.io.BufferedReader;
+
 
 public class Logica {
     private String nombre;
     private String cedula;
     private int montoADepositar;
-    private BufferedReader reader = new BufferedReader(new java.io.InputStreamReader(System.in);
+    private int plazoEnMeses;
 
-    public Logica(){
+
+    public Logica() {
         this.nombre = "";
         this.cedula = "";
         this.montoADepositar = 0;
+        this.plazoEnMeses = 0;
     }
 
     public String getNombre() {
@@ -62,6 +64,10 @@ public class Logica {
         this.nombre = nombre; //si pasa por los filtros, se registra el nombre
     }
 
+    public int getPlazoEnMeses() {
+        return plazoEnMeses;
+    }
+
     public void setCedula(String cedula) throws CedulaInvalidaException { //Esto tiene un montón de filtros
         if (cedula == null || cedula.trim().isEmpty()) {
             throw new CedulaInvalidaException("La cédula no puede estar vacía.");
@@ -89,6 +95,14 @@ public class Logica {
         this.cedula = cedula; //si sale bien, se registra
     }
 
+    public void setPlazoEnMeses(int meses) throws IllegalArgumentException {
+        if (meses != 12 && meses != 24 && meses != 36 && meses != 48 && meses != 60) {
+            throw new IllegalArgumentException("Plazo inválido. Debe ser 12, 24, 36, 48 o 60 meses.");
+        }
+        this.plazoEnMeses = meses;
+    }
+
+
     public void setMontoADepositar(int montoADepositar) throws MontoInvalidoException {
         if (montoADepositar < 2000) {
             throw new MontoInvalidoException("El monto a depositar no puede ser menor a B/2000.00.");
@@ -97,11 +111,17 @@ public class Logica {
         this.montoADepositar = montoADepositar;
     }
 
-    public void obtenerDatos(BufferedReader reader) throws IOException {
-        System.out.println("Ingrese su nombre");
-        setNombre(reader.readLine());
-        System.out.println("Ingrese su cedula");
-        setCedula(reader.readLine());
-        System.out.println("Ingrese el monto que desea depositar (debe ser mayor que B/2000.00");
+    public double calcularMontoAcumulado() {
+        double tasa = switch (plazoEnMeses) {
+            case 12 -> 0.04;
+            case 24 -> 0.045;
+            case 36 -> 0.0455;
+            case 48 -> 0.0475;
+            case 60 -> 0.05;
+            default -> 0.0;
+        };
+
+        int anios = plazoEnMeses / 12;
+        return montoADepositar * Math.pow(1 + tasa, anios);
     }
 }
