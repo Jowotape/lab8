@@ -1,6 +1,5 @@
 package prob1;
 
-import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
@@ -8,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
-public class problema1<E> extends JFrame {
+public class Problema1<E> extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -16,7 +15,7 @@ public class problema1<E> extends JFrame {
 	private JList<String> list;
 	private DefaultListModel<String> contenidoDeLaLista = new DefaultListModel<>();
 
-	public problema1() {
+	public Problema1() {
 		setTitle("Problema 1 - Detectar vocales");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // para que no cierre todo el programa
 		setBounds(100, 100, 359, 174);

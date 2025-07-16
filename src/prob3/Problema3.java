@@ -18,18 +18,23 @@ public class Problema3 {
     private JLabel lbTitulo;
 
     public Problema3() {
-        lbTitulo.setText("Banco - Plazo Fijo");
+        panel1 = new JPanel();
+        panel1.setVisible(true);
+        lbResultado = new JLabel();
+        lbTitulo = new JLabel("Banco - Plazo Fijo");
         lbTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         lbTitulo.setPreferredSize(new Dimension(400, 40));
         lbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
         lbResultado.setForeground(Color.RED);
 
+        comboPlazo = new JComboBox<Integer>();
         comboPlazo.addItem(12);
         comboPlazo.addItem(24);
         comboPlazo.addItem(36);
         comboPlazo.addItem(48);
         comboPlazo.addItem(60);
 
+        botonCalcular = new JButton();
         botonCalcular.addActionListener(e -> {
             String nombre = campoNombre.getText().trim();
             String cedula = campoCedula.getText().trim();
@@ -64,10 +69,6 @@ public class Problema3 {
                 lbResultado.setText(String.format("<html><span style='color:red'>%s</span></html>", ex.getMessage()));
             }
         });
-    }
-
-    public JPanel getPanel1() {
-        return panel1;
     }
 
 }
