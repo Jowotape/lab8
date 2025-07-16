@@ -6,7 +6,7 @@ import exceptions.NombreInvalidoException;
 
 import javax.swing.*;
 
-public class FormularioDeposito {
+public class problema3 {
     private JPanel panelPrincipal;
     private JTextField campoNombre;
     private JTextField campoCedula;
@@ -15,7 +15,7 @@ public class FormularioDeposito {
     private JButton botonCalcular;
     private JLabel lbResultado;
 
-    public FormularioDeposito() {
+    public problema3() {
         // Agrega los valores al ComboBox
         comboPlazo.addItem(12);
         comboPlazo.addItem(24);
