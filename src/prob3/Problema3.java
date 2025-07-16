@@ -5,8 +5,9 @@ import exceptions.MontoInvalidoException;
 import exceptions.NombreInvalidoException;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class problema3 {
+public class Problema3 {
     private JPanel panel1;
     private JTextField campoNombre;
     private JTextField campoCedula;
@@ -14,25 +15,35 @@ public class problema3 {
     private JComboBox<Integer> comboPlazo;
     private JButton botonCalcular;
     private JLabel lbResultado;
+    private JLabel lbTitulo;
 
-    public problema3() {
-        // Inicializar ComboBox con los valores válidos
+    public Problema3() {
+        lbTitulo.setText("Banco - Plazo Fijo");
+        lbTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        lbTitulo.setPreferredSize(new Dimension(400, 40));
+        lbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
+
         comboPlazo.addItem(12);
         comboPlazo.addItem(24);
         comboPlazo.addItem(36);
         comboPlazo.addItem(48);
         comboPlazo.addItem(60);
 
-        // Acción del botón
         botonCalcular.addActionListener(e -> {
-            try {
-                Logica logica = new Logica();
+            String nombre = campoNombre.getText().trim();
+            String cedula = campoCedula.getText().trim();
+            String montoTexto = campoMonto.getText().trim();
 
-                String nombre = campoNombre.getText().trim();
-                String cedula = campoCedula.getText().trim();
-                int monto = Integer.parseInt(campoMonto.getText().trim());
+            if (nombre.isEmpty() || cedula.isEmpty() || montoTexto.isEmpty()) {
+                lbResultado.setText("<html><span style='color:red'>Todos los campos deben estar llenos.</span></html>");
+                return;
+            }
+
+            try {
+                int monto = Integer.parseInt(montoTexto);
                 int plazo = (Integer) comboPlazo.getSelectedItem();
 
+                Logica logica = new Logica();
                 logica.setNombre(nombre);
                 logica.setCedula(cedula);
                 logica.setMontoADepositar(monto);
@@ -41,11 +52,12 @@ public class problema3 {
                 double resultado = logica.calcularMontoAcumulado();
                 lbResultado.setText(String.format(
                         "<html><b>Depósito válido.</b><br>Monto acumulado: B/. %.2f</html>", resultado));
-            } catch (NumberFormatException ex) {
-                lbResultado.setText("<html><span style='color:red'>Monto inválido. Debe ser un número entero.</span></html>");
+
             } catch (NombreInvalidoException | CedulaInvalidaException |
-                     MontoInvalidoException | IllegalArgumentException ex) {
+                     MontoInvalidoException ex) {
                 lbResultado.setText(String.format("<html><span style='color:red'>%s</span></html>", ex.getMessage()));
+            } catch (NumberFormatException | IllegalArgumentException ex) {
+                lbResultado.setText("<html><span style='color:red'>Monto inválido. Debe ser un número entero o el plazo no es válido.</span></html>");
             }
         });
     }
@@ -54,14 +66,13 @@ public class problema3 {
         return panel1;
     }
 
-    // MAIN dentro de esta clase
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Banco - Plazo Fijo");
-            frame.setContentPane(new problema3().getPanel1());
+            frame.setContentPane(new Problema3().getPanel1());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
-            frame.setLocationRelativeTo(null); // Centrar en pantalla
+            frame.setLocationRelativeTo(null); // Centrado
             frame.setVisible(true);
         });
     }
