@@ -6,7 +6,7 @@ import exceptions.NombreInvalidoException;
 
 import javax.swing.*;
 
-public class problema3 {
+public class Problema3 {
     private JPanel panel1;
     private JTextField campoNombre;
     private JTextField campoCedula;
@@ -15,7 +15,7 @@ public class problema3 {
     private JButton botonCalcular;
     private JLabel lbResultado;
 
-    public problema3() {
+    public Problema3() {
         // Inicializar ComboBox con los valores válidos
         comboPlazo.addItem(12);
         comboPlazo.addItem(24);
@@ -58,7 +58,7 @@ public class problema3 {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Banco - Plazo Fijo");
-            frame.setContentPane(new problema3().getPanel1());
+            frame.setContentPane(new Problema3().getPanel1());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
             frame.setLocationRelativeTo(null); // Centrar en pantalla
