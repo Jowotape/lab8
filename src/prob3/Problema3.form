@@ -64,9 +64,11 @@
         </constraints>
         <properties>
           <background color="-2161889"/>
-          <enabled value="false"/>
+          <enabled value="true"/>
+          <font name="Arial" size="12"/>
           <foreground color="-18859"/>
           <text value=""/>
+          <visible value="true"/>
         </properties>
       </component>
       <component id="27c8a" class="javax.swing.JTextField" binding="campoNombre">

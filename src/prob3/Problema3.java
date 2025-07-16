@@ -22,6 +22,7 @@ public class Problema3 {
         lbTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         lbTitulo.setPreferredSize(new Dimension(400, 40));
         lbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
+        lbResultado.setForeground(Color.RED);
 
         comboPlazo.addItem(12);
         comboPlazo.addItem(24);
@@ -40,24 +41,27 @@ public class Problema3 {
             }
 
             try {
-                int monto = Integer.parseInt(montoTexto);
+                // Cambiado a double
+                double montoADepositar = Double.parseDouble(montoTexto);
                 int plazo = (Integer) comboPlazo.getSelectedItem();
 
                 Logica logica = new Logica();
                 logica.setNombre(nombre);
                 logica.setCedula(cedula);
-                logica.setMontoADepositar(monto);
+                // Cambiado a double
+                logica.setMontoADepositar(montoADepositar);
                 logica.setPlazoEnMeses(plazo);
 
                 double resultado = logica.calcularMontoAcumulado();
                 lbResultado.setText(String.format(
-                        "<html><b>Depósito válido.</b><br>Monto acumulado: B/. %.2f</html>", resultado));
+                        "<html><span style='color:green;'><b>Depósito válido.</b><br>Monto acumulado: B/. %.2f</span></html>", resultado));
 
-            } catch (NombreInvalidoException | CedulaInvalidaException |
-                     MontoInvalidoException ex) {
+            } catch (NumberFormatException ex) {
+                lbResultado.setText("<html><span style='color:red'>Monto inválido. Debe ser un número válido.</span></html>");
+            } catch (NombreInvalidoException | CedulaInvalidaException | MontoInvalidoException ex) {
                 lbResultado.setText(String.format("<html><span style='color:red'>%s</span></html>", ex.getMessage()));
-            } catch (NumberFormatException | IllegalArgumentException ex) {
-                lbResultado.setText("<html><span style='color:red'>Monto inválido. Debe ser un número entero o el plazo no es válido.</span></html>");
+            } catch (IllegalArgumentException ex) {
+                lbResultado.setText(String.format("<html><span style='color:red'>%s</span></html>", ex.getMessage()));
             }
         });
     }
@@ -66,14 +70,4 @@ public class Problema3 {
         return panel1;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Banco - Plazo Fijo");
-            frame.setContentPane(new Problema3().getPanel1());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack();
-            frame.setLocationRelativeTo(null); // Centrado
-            frame.setVisible(true);
-        });
-    }
 }

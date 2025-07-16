@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Logica {
     private String nombre;
     private String cedula;
-    private int montoADepositar;
+    private double montoADepositar;
     private int plazoEnMeses;
 
 
@@ -28,7 +28,7 @@ public class Logica {
         return cedula;
     }
 
-    public int getMontoADepositar() {
+    public double getMontoADepositar() {
         return montoADepositar;
     }
 
@@ -103,7 +103,7 @@ public class Logica {
     }
 
 
-    public void setMontoADepositar(int montoADepositar) throws MontoInvalidoException {
+    public void setMontoADepositar(double montoADepositar) throws MontoInvalidoException {
         if (montoADepositar < 2000) {
             throw new MontoInvalidoException("El monto a depositar no puede ser menor a B/2000.00.");
         }
